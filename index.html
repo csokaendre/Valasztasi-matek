@@ -26,8 +26,8 @@
     }
     #pageLayout {
       display: grid;
-      grid-template-columns: 330px minmax(0, 1fr);
-      gap: 22px;
+      grid-template-columns: 390px minmax(0, 1fr);
+      gap: 10px;
       align-items: start;
       margin-top: 8px;
     }
@@ -120,6 +120,7 @@
     #plotColumn {
       min-width: 0;
       margin-top: -38px;
+      margin-left: -48px;
     }
     .js-plotly-plot .plotly .modebar {
       top: 10px !important;
@@ -188,6 +189,26 @@
     }
     .formula-list li + li {
       margin-top: 7px;
+    }
+
+    .equation-image-wrap {
+      display: flex;
+      justify-content: center;
+      max-width: 100%;
+      overflow-x: auto;
+      padding: 4px 0;
+    }
+    .equation-image {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+    .equation-block {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      white-space: normal;
+      word-break: break-word;
     }
     @media (max-width: 980px) {
       #pageLayout {
@@ -276,26 +297,8 @@
         <li>Ha viszont egy tiszás és egy független jelölt versenyez a győzelemért, akkor az segíti jobban a kormányváltást, ha a független jelölt nyer, és a Tisza összes szavazatából töredékszavazat lesz.</li>
       </ol>
 
-      <h3>Honnan tudjuk előre, hogy ki hanyadik lesz?</h3>
-      <p>Nem tudjuk előre, és épp ez a lényeg. Hanem csupán esélyeket tudunk latolgatni, és ez alapján tudjuk megbecsülni, hogy ha egyik vagy másik jelöltre szavaznánk, akkor azáltal mekkora eséllyel szereznénk eggyel több mandátumot az ellenzéknek. Ezek a számok tehát azzal arányosak, hogy a választó az elérhető legjobb tudása szerint mekkora esélyt adhat annak, hogy az egyéni választókerületi szavazatával el tud venni egy képviselői helyet a Fidesztől, akár a Tisza, akár a független jelölt javára.</p>
-      <p>Ez a szám különösen magas a szoros helyzetekben. Míg listás és töredékszavazatokból közel százezerre van szükség egy mandátumhoz, itt párezer szavazaton múlhat egy mandátum.</p>
-
-      <h3>Hogyan modellezzük a bizonytalanságot?</h3>
-      <p>Egy valószínűségi eloszlást adunk meg arra, hogy a többiek hogyan fognak szavazni. A bizonytalanság pontos természete kevéssé befolyásolja a végeredményt, de igyekeztünk egy reálisabb típusú és mértékű bizonytalansággal számolni. A modellben lognormális jellegű bizonytalanságot feltételeztünk az alábbi módon. Logaritmikus skálán vesszük a jelöltek várható támogatottságát, és erre teszünk egy normális eloszlású bizonytalanságot a következő kovariancia-mátrixszal:</p>
-      <div class="math-card matrix-card">
-        <div class="matrix-labels">
-          <div>Fidesz</div>
-          <div>Tisza</div>
-          <div>független</div>
-        </div>
-        <table class="matrix-table" aria-label="Kovariancia-mátrix">
-          <tr><td>0.006</td><td>0.003</td><td>0.003</td></tr>
-          <tr><td>0.003</td><td>0.010</td><td>0.007</td></tr>
-          <tr><td>0.003</td><td>0.007</td><td>0.010</td></tr>
-        </table>
-      </div>
-      <p>Ez azt fejezi ki, hogy a Tisza és a független jelölt nagyrészt, de nem kizárólag egymástól szerezhet szavazatokat. Ezt követően úgy normálva kapjuk meg a szavazatszámokat, hogy az összeg három versengő jelölt esetén 50 000 legyen, ha pedig csak ketten vannak versenyben a győzelemért, akkor ketten összesen 40 000 szavazatra számíthatnak.</p>
-      <p>A szavazat értéke pedig az alábbi hét tételből áll össze:</p>
+      <h3>Egy szavazat hatása</h3>
+      <p>Mi a többiek szavazatát megváltoztatni nem tudjuk, ezért azt kell mérlegelnünk, hogy a mi egy-egy szavazatunk mennyit változtat az eredményen. Plusz egy szavazat hatása az alábbi hét tételből áll össze:</p>
       <div class="math-card">
         <ol class="formula-list">
           <li>Ha Tisza és Fidesz <i>K</i>–<i>K</i> szavazatos döntetlenben állnak az első helyen, akkor a Tiszára adott szavazat értéke: <b>190000 − 2K</b>.</li>
@@ -307,6 +310,33 @@
           <li>Ha a Tisza az első, akkor a második helyezettre, vagyis a függetlenre adott szavazat <b>−1</b>-et ad, mert csökkenti a Tisza töredékszavazatait.</li>
         </ol>
       </div>
+
+      <h3>Honnan tudjuk előre, hogy ki hanyadik lesz?</h3>
+      <p>Nem tudjuk előre, és épp ezért kell ide valószínűségszámítás. Csupán esélyeket tudunk latolgatni, és ez alapján tudjuk megbecsülni, hogy ha egyik vagy másik jelöltre szavaznánk, akkor azáltal mekkora eséllyel szereznénk eggyel több mandátumot az ellenzéknek. A szavazat értékeként megadott számok tehát azzal arányosak, hogy a választó az elérhető legjobb tudása szerint mekkora esélyt adhat annak, hogy az egyéni választókerületi szavazatával el tud venni egy képviselői helyet a Fidesztől, akár a Tisza, akár a független jelölt javára.</p>
+      <p>Ez a szám különösen magas a szoros helyzetekben. Míg listás és töredékszavazatokból közel százezerre van szükség egy mandátumhoz, itt párezer szavazaton múlhat egy mandátum.</p>
+
+      <h3>Hogyan modellezzük a bizonytalanságot?</h3>
+      <p>Egy valószínűségi eloszlást adunk meg arra, hogy a többiek hogyan fognak szavazni. Ugyanúgy, ahogy a <a href="https://qubit.hu/2018/03/28/egy-magyar-matematikus-kiszamolta-mennyit-er-a-szavazatod-a-valasztason" target="_blank" rel="noopener noreferrer">2018-as átfogó választási elemzésben</a> is tettük. A bizonytalanság pontos természete kevéssé befolyásolja a végeredményt, de igyekeztünk egy reálisabb típusú és mértékű bizonytalansággal számolni. A modellben lognormális jellegű bizonytalanságot feltételeztünk az alábbi módon. Logaritmikus skálán vesszük a jelöltek várható támogatottságát, és erre teszünk egy normális eloszlású bizonytalanságot a következő kovariancia-mátrixszal:</p>
+      <div class="math-card matrix-card">
+        <div class="matrix-labels">
+          <div>Fidesz</div>
+          <div>Tisza</div>
+          <div>független</div>
+        </div>
+        <table class="matrix-table" aria-label="Kovariancia-mátrix">
+          <tr><td>0.006</td><td>-0.003</td><td>-0.003</td></tr>
+          <tr><td>-0.003</td><td>0.010</td><td>-0.007</td></tr>
+          <tr><td>-0.003</td><td>-0.007</td><td>0.010</td></tr>
+        </table>
+      </div>
+      <p>Ez azt fejezi ki, hogy a Tisza és a független jelölt nagyrészt, de nem kizárólag egymástól szerezhet szavazatokat, míg a Fidesz támogatottsága pontosabban jósolható. Ezt követően úgy normálva kapjuk meg a szavazatszámokat, hogy az összeg három versengő jelölt esetén 50 000 legyen, ha pedig csak ketten vannak versenyben a győzelemért, akkor ketten összesen 40 000 szavazatra számíthatnak.</p>
+      <p>Formálisan, a sorsolt (<i>r</i><sub>f</sub>, <i>r</i><sub>t</sub>, <i>r</i><sub>x</sub>) hibavektorhoz tartozó szavazateloszlás:</p>
+      <div class="math-card">
+        <div class="equation-image-wrap">
+          <img class="equation-image" src="formula.png" alt="(50 000 / (exp(μf + rf) + exp(μt + rt) + exp(μx + rx))) × (exp(μf + rf), exp(μt + rt), exp(μx + rx))">
+        </div>
+      </div>
+      <p>A (μ<sub>f</sub>, μ<sub>t</sub>, μ<sub>x</sub>) értékeket pedig úgy állítjuk be, hogy megfeleljenek a megadott győzelmi valószínűségeknek.</p>
       <h3>Ezen a számoláson múlik, hogy a független jelöltnek vissza kellene-e lépnie?</h3>
       <p>Nem, ez az elemzés arról szól, hogy ha már mindkét jelölt elindul, akkor Ön az egy szavazatával hogyan tehet legtöbbet a kormányváltásért. Az egy teljesen más alapokon nyugvó elemzés lenne, hogy mi lett volna, ha a független jelölt visszalépett volna a Tisza jelöltjének javára, vagy ha a Tisza befogadta volna a jelöltet.</p>
       <h3>Tényleg lehet negatív a szavazatom hatása?</h3>
