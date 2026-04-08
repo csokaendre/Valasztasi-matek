@@ -261,6 +261,10 @@
       </div>
     </div>
 
+    <div id="bottomSummary">
+      <p><b>Vigyázat:</b> itt győzelmi esélyekről és nem támogatottságokról beszélünk! Például ha az egyik jelöltet 50%-os támogatottság közelébe várjuk, a másik kettőt 20-25%-ra, akkor a győzelmi esélyeik kerekítve 100% - 0% - 0%.</p>
+    </div>
+
     <div id="modelPanel">
       <h2>Matematikai modell és intuitív magyarázat</h2>
 
@@ -307,13 +311,14 @@
           <li>Ha Tisza és független <i>K</i>–<i>K</i> szavazatos döntetlenben állnak az első helyen, akkor a függetlenre adott szavazat értéke: <b>+K</b>.</li>
           <li>A Tiszára adott szavazat értéke mindig ad <b>+1</b>-et.</li>
           <li>Ha a Fidesz az első, akkor a második helyezettre adott szavazat ad <b>+1</b>-et, mert csökkenti a Fidesz töredékszavazatait.</li>
-          <li>Ha a Tisza az első, akkor a második helyezettre, vagyis a függetlenre adott szavazat <b>−1</b>-et ad, mert csökkenti a Tisza töredékszavazatait.</li>
+          <li>Ha a Tisza az első, akkor egy második helyezett függetlenre adott szavazat <b>−1</b>-et ér, mert csökkenti a Tisza töredékszavazatait.</li>
         </ol>
       </div>
 
       <h3>Honnan tudjuk előre, hogy ki hanyadik lesz?</h3>
-      <p>Nem tudjuk előre, és épp ezért kell ide valószínűségszámítás. Csupán esélyeket tudunk latolgatni, és ez alapján tudjuk megbecsülni, hogy ha egyik vagy másik jelöltre szavaznánk, akkor azáltal mekkora eséllyel szereznénk eggyel több mandátumot az ellenzéknek. A szavazat értékeként megadott számok tehát azzal arányosak, hogy a választó az elérhető legjobb tudása szerint mekkora esélyt adhat annak, hogy az egyéni választókerületi szavazatával el tud venni egy képviselői helyet a Fidesztől, akár a Tisza, akár a független jelölt javára.</p>
+      <p>Nem tudjuk előre, és épp ez a lényeg. Csupán esélyeket tudunk latolgatni, és ez alapján tudjuk megbecsülni, hogy ha egyik vagy másik jelöltre szavaznánk, akkor azáltal mekkora eséllyel szereznénk eggyel több mandátumot az ellenzéknek. Ezek a számok tehát azzal arányosak, hogy a választó az elérhető legjobb tudása szerint mekkora esélyt adhat annak, hogy az egyéni választókerületi szavazatával el tud venni egy képviselői helyet a Fidesztől, akár a Tisza, akár a független jelölt javára.</p>
       <p>Ez a szám különösen magas a szoros helyzetekben. Míg listás és töredékszavazatokból közel százezerre van szükség egy mandátumhoz, itt párezer szavazaton múlhat egy mandátum.</p>
+      <p>Sokszor nem is a közvélemény-kutatásokból, hanem a kampány intenzitásából és a környezetünkből következtethetünk a győzelmi esélyekre. Például ahová az utolsó héten Orbán Viktor és Magyar Péter is ellátogat, ott a két párt jelöltjének versenye szoros. Ahol pedig lagymatag kampány van, ott valószínűleg egyesélyes a verseny. Nyilvános közvélemény-kutatásokból pedig egyedül a MEDIÁN méréseit javaslom komolyan venni, különösen választókerületi szinten.</p>
 
       <h3>Hogyan modellezzük a bizonytalanságot?</h3>
       <p>Egy valószínűségi eloszlást adunk meg arra, hogy a többiek hogyan fognak szavazni. Ugyanúgy, ahogy a <a href="https://qubit.hu/2018/03/28/egy-magyar-matematikus-kiszamolta-mennyit-er-a-szavazatod-a-valasztason" target="_blank" rel="noopener noreferrer">2018-as átfogó választási elemzésben</a> is tettük. A bizonytalanság pontos természete kevéssé befolyásolja a végeredményt, de igyekeztünk egy reálisabb típusú és mértékű bizonytalansággal számolni. A modellben lognormális jellegű bizonytalanságot feltételeztünk az alábbi módon. Logaritmikus skálán vesszük a jelöltek várható támogatottságát, és erre teszünk egy normális eloszlású bizonytalanságot a következő kovariancia-mátrixszal:</p>
@@ -333,7 +338,7 @@
       <p>Formálisan, a sorsolt (<i>r</i><sub>f</sub>, <i>r</i><sub>t</sub>, <i>r</i><sub>x</sub>) hibavektorhoz tartozó szavazateloszlás:</p>
       <div class="math-card">
         <div class="equation-image-wrap">
-          <img class="equation-image" src="formula.png" alt="(50 000 / (exp(μf + rf) + exp(μt + rt) + exp(μx + rx))) × (exp(μf + rf), exp(μt + rt), exp(μx + rx))">
+          <img class="equation-image" src="formula.png" alt="\frac{50 000}{e^{\mu_f + r_f} + e^{\mu_t + r_t} + e^{\mu_x + r_x}}\Big(e^{\mu_f + r_f}, e^{\mu_t + r_t}, e^{\mu_x + r_x}\Big)">
         </div>
       </div>
       <p>A (μ<sub>f</sub>, μ<sub>t</sub>, μ<sub>x</sub>) értékeket pedig úgy állítjuk be, hogy megfeleljenek a megadott győzelmi valószínűségeknek.</p>
